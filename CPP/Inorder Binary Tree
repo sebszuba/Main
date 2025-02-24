@@ -1,0 +1,47 @@
+#include <iostream>
+
+using namespace std;
+
+class node {
+public:
+	int data;
+	node* left = NULL;
+	node* right = NULL;
+	node(int data) {
+		this->data = data;
+		
+		this->left = this->right = nullptr;
+	}
+};
+
+//Recursive function to perform inorder traversal on the tree
+void nodeData(node* head) {
+	
+	if (head == nullptr) {
+		return;
+	}
+
+	nodeData(head->left);
+
+	cout << head->data << " ";
+
+	nodeData(head->right);
+}
+
+
+
+int main() {
+
+	node* head = new node(1);
+	head->left = new node(2);
+	head->right = new node(3);
+	head->left->left = new node(4);
+	head->left->right = new node(5);
+	head->right->left = new node(6);
+	head->right->right = new node(7);
+
+	nodeData(head);
+
+	return 0;
+
+}

@@ -1,0 +1,79 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std; 
+
+class CPU {
+protected:
+	double ghz;
+	int cacheSize;
+	string name;
+	
+public: CPU(double g, int c, string n) {
+		ghz = g;
+		cacheSize = c;
+		name = n;
+	}
+
+	void showValues() {
+		cout << "CPU speed in ghz: " << ghz << endl;
+		cout << "CPU cache size in MB: " << cacheSize << endl;
+		cout << "Name of iPhone CPU: " << name << endl;
+	}
+};
+
+class display {
+protected: 
+	double size;
+	string displayType;
+	
+public: display(double s, string t) {
+	size = s;
+	displayType = t;
+}
+	  void showValues() {
+		  cout << "iPhone display size in inches: " << size << endl;
+		  cout << "iPhone display type: " << displayType << endl;
+	  }
+};
+
+class iPhone {
+private:
+	int cameraMP;
+	string software;
+	int ram;
+	int storage;
+	double price;
+
+public: iPhone(int cam, string s, int r, int st, double pr) {
+	cameraMP = cam;
+	software = s;
+	ram = r;
+	storage = st;
+	price = pr;
+}
+
+	  void showValues() {
+		  cout << "RAM size in MB: " << ram << endl;
+		  cout << "Camera quality in MP: " << cameraMP << endl;
+		  cout << "iPhone operating system: " << software << endl;
+		  cout << "iPhone storage in GB: " << storage << endl;
+		  cout << "iPhone price: " << price << endl;
+	  }
+};
+
+class iPhone12 : public iPhone {
+	double size;
+	string displayType;
+};
+
+int main() {
+	
+	iPhone thirteen(12, "IOS", 4, 128, 1199.99);
+	thirteen.showValues();
+
+	iPhone twelve(12, "IOS", 4, 128, 999.99);
+	twelve.showValues();
+	
+	return 0;
+}

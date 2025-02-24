@@ -1,0 +1,139 @@
+#include <cstring> 
+#include "iPhone.h"
+#include <stack>
+#include <queue>
+
+
+using namespace std;
+#define SIZE 20
+
+int len(string str) {
+	int length = 0;
+	for (int i = 0; str[i] != '\0'; i++)
+		length++;
+	return length;
+}
+
+void split(string strings[], string str, char seperator) {
+	int currIndex = 0, i = 0;
+	int startIndex = 0, endIndex = 0;
+	while (i <= len(str)) {
+		if (str[i] == seperator || i == len(str)) {
+			endIndex = i;
+			string subStr = "";
+			subStr.append(str, startIndex, endIndex - startIndex);
+			strings[currIndex] = subStr;
+			currIndex += 1;
+			startIndex = endIndex + 1;
+		}
+		i++;
+	}
+}
+
+void readCSVToStack(string filename, stack<iPhone>& lot) {
+	ifstream inFile;
+	inFile.open(filename.c_str());
+	if (inFile.fail()) {
+		cout << "\nThe file named " << filename << " was not succesfully opened" << "\n Please check that the file currently exists." << endl;
+		exit(1);
+	}
+
+	string fname = "";
+	string lname = "";
+	string make = "";
+	string model = "";
+	int year = 0;
+	double price = 0.0;
+	double cost = 0.0;
+
+	string strings[7];
+	char line[256];
+	char seperator = ',';
+	inFile.getline(line, 256);
+	while (!(inFile.eof())) {
+		cout << line << endl;
+		split(strings, line, seperator);
+
+		fname = strings[0];
+		lname = strings[1];
+		make = strings[2];
+		model = strings[3];
+		year = stoi(strings[4]);
+		cost = stoi(strings[5]);
+		price = stoi(strings[6]);
+
+		iPhone u(fname, lname, make, model, year, cost, price);
+
+		lot.push(u);
+		inFile.getline(line, 256);
+	}
+	inFile.close();
+}
+
+void readCSVToQueue(string filename, queue<iPhone>& traffic) {
+	ifstream inFile;
+	inFile.open(filename.c_str());
+	if (inFile.fail()) {
+		cout << "\nThe file named " << filename << " was not succesfully opened" << "\n Please check that the file currently exists." << endl;
+		exit(1);
+	}
+
+	string fname = "";
+	string lname = "";
+	string make = "";
+	string model = "";
+	int year = 0;
+	double price = 0.0;
+	double cost = 0.0;
+
+	string strings[7];
+	char line[256];
+	char seperator = ',';
+	inFile.getline(line, 256);
+	while (!(inFile.eof())) {
+		cout << line << endl;
+		split(strings, line, seperator);
+		fname = strings[0];
+		lname = strings[1];
+		make = strings[2];
+		model = strings[3];
+		year = stoi(strings[4]);
+		cost = stoi(strings[5]);
+		price = stoi(strings[6]);
+
+		iPhone u(fname, lname, make, model, year, cost, price);
+
+		traffic.push(u);
+		inFile.getline(line, 256);
+	}
+	inFile.close();
+}
+
+int main(void) {
+	stack <iPhone> lot;
+	readCSVToStack("iPhone.csv", lot);
+
+	cout << "The top of the stack before pop(): \n";
+	lot.top().detailLine();
+
+	lot.pop();
+	cout << "The top of the stack after pop(): \n";
+	lot.top().detailLine();
+
+	queue <iPhone> trafficJam;
+
+	readCSVToQueue("iPhone.csv", trafficJam);
+
+	cout << "The top of the queue before pop(): \n";
+	trafficJam.front().detailLine();
+	cout << "The back of the queue before pop(): \n";
+	trafficJam.back().detailLine();
+
+	trafficJam.pop();
+	cout << "The front of the queue after pop(): \n";
+	trafficJam.front().detailLine();
+	cout << "The back of the queue after pop(): \n";
+	trafficJam.back().detailLine();
+
+	return 0;
+}

@@ -1,0 +1,86 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+#define IPHONE 5
+using namespace std;
+
+class iPhone {
+
+private:
+    int Model;
+    string Pro;
+    string Max;
+    int Storage;
+    double Price;
+
+public:
+    iPhone() {}
+
+    iPhone(int Md, string P, string M, int sto, double pr) {
+        Model = Md, Pro = P, Max = M, Storage = sto, Price = pr;
+    }
+
+    void detailLine() {
+        cout << setw(5) << Model << setw(5) << Pro << setw(5) << Max << setw(5) << Storage << "    " << Price << endl;
+    }
+
+    int getModel() { return Model; }
+    string getPro() { return Pro; }
+    string getMax() { return Max; }
+    int getStorage() { return Storage; }
+    double getPrice() { return Price; }
+
+    void setModel(int Md) { Model = Md; }
+    void setPro(string P) { Pro = P; }
+    void setMax(string M) { Max = M; }
+    void setStorage(int sto) { Storage = sto; }
+    void setPrice(double pr) { Price = pr; }
+
+    void showiPhoneData() {
+        cout << "Model: " << Model << endl;
+        cout << "Pro: " << Pro << endl;
+        cout << "Max: " << Max  << endl;
+        cout << "Storage: " << Storage << endl;
+        cout << "Price: " << Price << endl;
+    }
+
+    void iPhoneValues() {
+        cout << "Enter Model: "; cin >> Model;
+        cout << "Entre Pro: "; getline(cin, Pro);
+        cout << "Enter Max: "; getline(cin, Max);
+        cout << "Enter storage: "; cin >> Storage;
+        cout << "Enter price: "; cin >> Price;
+    }
+
+    iPhone operator+(iPhone other) {
+        iPhone newiPhone;
+        newiPhone.Model = this->Model + other.Model;
+        newiPhone.Pro = this->Pro + other.Pro;
+        newiPhone.Max = this->Max + other.Max;
+        newiPhone.Storage = this->Storage + other.Storage;
+        newiPhone.Price = this->Price + other.Price;
+        return newiPhone;
+    }
+};
+
+int main() {
+    iPhone eleven(11, "Pro", "Max", 128, 899.99);
+    iPhone twelve(12, "Pro", "Max", 128, 999.99);
+    iPhone thirteen(13, "Pro", "Max", 512, 1199.99);
+    iPhone fourteen(14, "Pro", "Max", 512, 1299.99);
+    iPhone fourteenTwo(14, "Pro", "Max", 1000, 1399.99);
+
+    cout << "Here are the class object values: " << endl;
+
+    iPhone iPhone[IPHONE]; 
+    iPhone[0] = eleven;
+    iPhone[1] = twelve;
+    iPhone[2] = thirteen;
+    iPhone[3] = fourteen;
+    iPhone[4] = fourteenTwo;
+
+    for (int i = 0; i < IPHONE; ++i) {
+        iPhone[i].detailLine();
+    }
+    return 0;
+}
